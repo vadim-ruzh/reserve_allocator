@@ -6,6 +6,17 @@
 #include <new>
 #include <iostream>
 
+
+static size_t AlignUp(size_t n,size_t Alignment) noexcept
+{
+    if (n % Alignment)
+    {
+        n = (n / Alignment + 1) * Alignment;
+    }
+
+    return n;
+}
+
 template<std::size_t ReserveSize, std::size_t Alignment = alignof(std::max_align_t)>
 class MemoryPool
 {
@@ -17,7 +28,7 @@ public:
 	        ReserveMemory();
 	    }
 
-        const size_t alignMemorySize = AlignUp(requiredMemorySize);
+        const size_t alignMemorySize = AlignUp(requiredMemorySize,Alignment);
 
         if(IsPointerInMemoryPool(mCurrentPlaceInMemory + alignMemorySize))
         {
@@ -47,15 +58,6 @@ public:
     }
 
 private:
-    static size_t AlignUp(size_t n) noexcept
-    {
-        if (n % Alignment)
-        {
-            n = (n / Alignment + 1) * Alignment;
-        }
-
-        return n;
-    }
 
     bool IsNotReserved() const
     {
@@ -108,7 +110,7 @@ public:
 
     static size_type max_size()
     {
-        return ReservedMemorySize / Alignment - 1;
+        return ReservedMemorySize/AlignUp(sizeof(value_type), Alignment) - 1;
     }
 
     pointer allocate(std::size_t size)
