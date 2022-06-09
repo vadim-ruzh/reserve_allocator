@@ -5,6 +5,11 @@ VisualStudioVersion = 16.0.32126.315
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "reserve_allocator", "reserve_allocator\reserve_allocator.vcxproj", "{103DD760-F448-40B4-9BDD-857E83D6CE5C}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Tests", "Tests\Tests.vcxproj", "{E61175BB-B15A-49BA-94B8-98CCC617964E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{103DD760-F448-40B4-9BDD-857E83D6CE5C} = {103DD760-F448-40B4-9BDD-857E83D6CE5C}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +26,14 @@ Global
 		{103DD760-F448-40B4-9BDD-857E83D6CE5C}.Release|x64.Build.0 = Release|x64
 		{103DD760-F448-40B4-9BDD-857E83D6CE5C}.Release|x86.ActiveCfg = Release|Win32
 		{103DD760-F448-40B4-9BDD-857E83D6CE5C}.Release|x86.Build.0 = Release|Win32
+		{E61175BB-B15A-49BA-94B8-98CCC617964E}.Debug|x64.ActiveCfg = Debug|x64
+		{E61175BB-B15A-49BA-94B8-98CCC617964E}.Debug|x64.Build.0 = Debug|x64
+		{E61175BB-B15A-49BA-94B8-98CCC617964E}.Debug|x86.ActiveCfg = Debug|Win32
+		{E61175BB-B15A-49BA-94B8-98CCC617964E}.Debug|x86.Build.0 = Debug|Win32
+		{E61175BB-B15A-49BA-94B8-98CCC617964E}.Release|x64.ActiveCfg = Release|x64
+		{E61175BB-B15A-49BA-94B8-98CCC617964E}.Release|x64.Build.0 = Release|x64
+		{E61175BB-B15A-49BA-94B8-98CCC617964E}.Release|x86.ActiveCfg = Release|Win32
+		{E61175BB-B15A-49BA-94B8-98CCC617964E}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -140,7 +140,7 @@ namespace my
 
 			++mSize;
 
-			return newNode;
+			return Iterator(newNode);
 		}
 		Iterator insert(Iterator where, size_type count, const_reference value)
 		{
@@ -181,7 +181,7 @@ namespace my
 
 			--mSize;
 
-			return afterThisNode;
+			return Iterator(afterThisNode);
 		}
 		Iterator erase(Iterator begin, Iterator end)
 		{
