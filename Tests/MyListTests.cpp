@@ -19,7 +19,6 @@ int Fibonacci(int n)
 	return n < 2 ? n : Fibonacci(n - 2) + Fibonacci(n - 1);
 }
 
-
 struct Hard {
 
 	Hard(int fa_, int fi_) : fa(Factorial(fa_)), fi(Fibonacci(fi_))
@@ -48,7 +47,7 @@ struct Hard {
 using TestType = Hard;
 
 
-BOOST_AUTO_TEST_SUITE(TestWithStdAllocator)
+BOOST_AUTO_TEST_SUITE(TestMyListWithStdAllocator)
 
 BOOST_AUTO_TEST_SUITE(TestInsertInList)
 
@@ -106,7 +105,7 @@ BOOST_AUTO_TEST_SUITE(TestInsertInList)
 
 BOOST_AUTO_TEST_SUITE_END()
 
-BOOST_AUTO_TEST_SUITE(TestRemoveFromList, *utf::depends_on("TestWithStdAllocator/TestInsertInList"))
+BOOST_AUTO_TEST_SUITE(TestRemoveFromList)
 
 	BOOST_AUTO_TEST_CASE(Erase)
 	{
@@ -204,10 +203,33 @@ BOOST_AUTO_TEST_SUITE_END()
 
 BOOST_AUTO_TEST_SUITE_END()
 
+	BOOST_AUTO_TEST_SUITE(TestMyReserveAllocator)
 
-//TODO:
-//BOOST_AUTO_TEST_SUITE(TestWithCustomAllocator)
-//
-//	
-//BOOST_AUTO_TEST_SUITE_END()
-//
+	BOOST_AUTO_TEST_CASE(TestAddItemOverMaxSizeInMyList)
+	{
+		my::List<Hard, my::ReserveAllocator<Hard, 200>> testList;
+
+		for(int i = 0;i < testList.max_size();++i)
+		{
+			testList.push_back(Hard{ i,i });
+		}
+
+		BOOST_CHECK_THROW(testList.push_back(Hard{ 1,1 }),std::runtime_error);
+	}
+
+	BOOST_AUTO_TEST_CASE(TestAddItemOverMaxSizeInStdList)
+{
+	std::list<Hard, my::ReserveAllocator<Hard, 200>> testList;
+
+
+	BOOST_TEST_MESSAGE(testList.max_size());
+
+	for (int i = 0; i < testList.max_size() - 1 ; ++i)
+	{
+		testList.push_back(Hard{ i,i });
+	}
+
+	BOOST_CHECK_THROW(testList.push_back(Hard{ 1,1 }), std::runtime_error);
+}
+
+BOOST_AUTO_TEST_SUITE_END()

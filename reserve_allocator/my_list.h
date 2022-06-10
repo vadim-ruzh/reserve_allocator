@@ -126,7 +126,7 @@ namespace my
 		{
 			if(mSize + 1 > this->max_size())
 			{
-				throw std::exception("Maximum number of values exceeded");
+				throw std::runtime_error("Maximum number of values exceeded");
 			}
 
 			Node* thisNode = where.mPtr;
@@ -212,7 +212,7 @@ namespace my
 			{
 				if (*beg == value)
 				{
-					this->erase(beg);
+					beg = this->erase(beg);
 				}
 			}
 		}
