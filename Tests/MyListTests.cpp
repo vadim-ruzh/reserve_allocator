@@ -87,20 +87,20 @@ BOOST_AUTO_TEST_SUITE(TestInsertInList)
 
 	BOOST_AUTO_TEST_CASE(PushBack)
 	{
-		const TestType ControlValue{ 4,3 };
+		const TestType controlValue{ 4,3 };
 		auto testObject = my::List<TestType, std::allocator<TestType>>();
 
-		testObject.push_back(ControlValue);
-		BOOST_CHECK(testObject.back() == ControlValue);
+		testObject.push_back(controlValue);
+		BOOST_CHECK(testObject.back() == controlValue);
 	}
 
 	BOOST_AUTO_TEST_CASE(PushFront)
 	{
-		const TestType ControlValue{ 5,7 };
+		const TestType controlValue{ 5,7 };
 		auto testObject = my::List<TestType, std::allocator<TestType>>();
 
-		testObject.push_front(ControlValue);
-		BOOST_CHECK(testObject.front() == ControlValue);
+		testObject.push_front(controlValue);
+		BOOST_CHECK(testObject.front() == controlValue);
 	}
 
 BOOST_AUTO_TEST_SUITE_END()
@@ -143,10 +143,10 @@ BOOST_AUTO_TEST_SUITE(TestRemoveFromList)
 
 	BOOST_AUTO_TEST_CASE(PopBack)
 	{
-		const TestType ControlValue{ 4,3 };
+		const TestType controlValue{ 4,3 };
 		auto testObject = my::List<TestType, std::allocator<TestType>>();
 
-		testObject.push_back(ControlValue);
+		testObject.push_back(controlValue);
 		testObject.pop_back();
 		
 		BOOST_CHECK(testObject.empty());
@@ -154,10 +154,10 @@ BOOST_AUTO_TEST_SUITE(TestRemoveFromList)
 
 	BOOST_AUTO_TEST_CASE(PopFront)
 	{
-		const TestType ControlValue{ 4,3 };
+		const TestType controlValue{ 4,3 };
 		auto testObject = my::List<TestType, std::allocator<TestType>>();
 
-		testObject.push_front(ControlValue);
+		testObject.push_front(controlValue);
 		testObject.pop_front();
 
 		BOOST_CHECK(testObject.empty());
@@ -231,5 +231,23 @@ BOOST_AUTO_TEST_SUITE_END()
 
 	BOOST_CHECK_THROW(testList.push_back(Hard{ 1,1 }), std::runtime_error);
 }
+
+
+	BOOST_AUTO_TEST_CASE(DataValidityCheck)
+	{
+		my::List<Hard, my::ReserveAllocator<Hard, 200>> testList;
+
+		auto controlValue = Hard{ 5,5 };
+
+		for (int i = 0; i < testList.max_size(); ++i)
+		{
+			testList.push_back(controlValue);
+		}
+
+		for (auto elem : testList)
+		{
+			BOOST_CHECK(elem == controlValue);
+		}
+	}
 
 BOOST_AUTO_TEST_SUITE_END()
